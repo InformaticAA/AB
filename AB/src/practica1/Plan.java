@@ -2,7 +2,6 @@ package practica1;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -24,7 +23,7 @@ public class Plan {
 		return numIntervalos;
 	}
 	
-	private static List generarIntervalos(int numIntervalos){
+	private static ArrayList<Registro> generarIntervalos(int numIntervalos){
 		Random rand = new Random();
 		
 		ArrayList<Registro> list = new ArrayList<Registro>();
