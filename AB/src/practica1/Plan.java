@@ -44,19 +44,18 @@ public class Plan {
 		
 		Iterator<Registro> i = list.iterator();
 		Iterator<Registro> i2 = list.iterator();
-
-		i2.next();
 		
-		while(i.hasNext()){
-			while(i2.hasNext()){
-				Registro a = i.next();
+		while (i.hasNext()) {
+			Registro a = i.next();
+			i2 = i;
+			i2.next();
+			while(i2.hasNext()) {
 				Registro b = i2.next();
 				if(!a.getIntervalo().compatibles(b.getIntervalo())){
 					a.addConflicto();
 					b.addConflicto();
 				}
 			}
-			i2 = i;
 		}
 	}
 
