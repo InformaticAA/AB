@@ -8,7 +8,7 @@ public class Mergesort {
 		IZQUIERDA,DERECHA,LONGITUD,CONFLICTOS
 	}
 
-	public ArrayList<Registro> mergesort(ArrayList<Registro> lista, String criterio) {
+	public static ArrayList<Registro> mergesort(ArrayList<Registro> lista, String criterio) {
 		ArrayList<Registro> izquierda = new ArrayList<Registro>();
 		ArrayList<Registro> derecha = new ArrayList<Registro>();
 		ArrayList<Registro> resultado = new ArrayList<Registro>();
@@ -21,12 +21,13 @@ public class Mergesort {
 			
 			/* Separa el vector lista en dos mitades */
 			int puntoMedio = lista.size()/2;
+			System.out.println(puntoMedio);
 
-			for (int i = 0; i <= puntoMedio; i++) {
+			for (int i = 0; i < puntoMedio; i++) {
 				izquierda.add(lista.get(i));
 			}
 			
-			for (int i = puntoMedio+1; i < lista.size(); i++) {
+			for (int i = puntoMedio; i < lista.size(); i++) {
 				derecha.add(lista.get(i));
 			}
 			
@@ -39,8 +40,8 @@ public class Mergesort {
 				
 			case IZQUIERDA:
 				
-				if (izquierda.get(puntoMedio).getIntervalo().getInicio() <=
-					derecha.get(puntoMedio+1).getIntervalo().getInicio() ) {
+				if (izquierda.get(izquierda.size()-1).getIntervalo().getInicio() <=
+					derecha.get(0).getIntervalo().getInicio() ) {
 				
 					izquierda.addAll(derecha);
 					return izquierda;
@@ -49,8 +50,8 @@ public class Mergesort {
 			
 			case DERECHA:
 				
-				if (izquierda.get(puntoMedio).getIntervalo().getFin() <=
-					derecha.get(puntoMedio+1).getIntervalo().getFin() ) {
+				if (izquierda.get(izquierda.size()-1).getIntervalo().getFin() <=
+					derecha.get(0).getIntervalo().getFin() ) {
 				
 					izquierda.addAll(derecha);
 					return izquierda;
@@ -59,8 +60,8 @@ public class Mergesort {
 				
 			case LONGITUD:
 				
-				if (izquierda.get(puntoMedio).getIntervalo().getLength() <=
-					derecha.get(puntoMedio+1).getIntervalo().getLength() ) {
+				if (izquierda.get(izquierda.size()-1).getIntervalo().getLength() <=
+					derecha.get(0).getIntervalo().getLength() ) {
 				
 					izquierda.addAll(derecha);
 					return izquierda;
@@ -69,8 +70,8 @@ public class Mergesort {
 			
 			case CONFLICTOS:
 				
-				if (izquierda.get(puntoMedio).getConflictos() <=
-					derecha.get(puntoMedio+1).getConflictos() ) {
+				if (izquierda.get(izquierda.size()-1).getConflictos() <=
+					derecha.get(0).getConflictos() ) {
 				
 					izquierda.addAll(derecha);
 					return izquierda;
@@ -87,7 +88,7 @@ public class Mergesort {
 		}
 	}
 		
-	public ArrayList<Registro> merge(ArrayList<Registro> izquierda, ArrayList<Registro> derecha, String criterio) {
+	public static ArrayList<Registro> merge(ArrayList<Registro> izquierda, ArrayList<Registro> derecha, String criterio) {
 		ArrayList<Registro> resultado = new ArrayList<Registro>();
 	
 		while(izquierda.size() > 0 && derecha.size() > 0) {
@@ -97,6 +98,7 @@ public class Mergesort {
 			switch(estrategia) {
 			
 			case IZQUIERDA:
+				
 				if (izquierda.get(0).getIntervalo().getInicio() <=
 						derecha.get(0).getIntervalo().getInicio() ) {
 					
@@ -137,7 +139,8 @@ public class Mergesort {
 					
 					resultado.add(derecha.get(0));
 					derecha.remove(0);
-		}
+				}
+				break;
 				
 				
 			case CONFLICTOS:

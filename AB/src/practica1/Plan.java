@@ -7,20 +7,48 @@ import java.util.Scanner;
 
 public class Plan {
 	
-	private static final int MAX_INTERVAL_LEFT = 0;
-	private static final int MAX_INTERVAL_LENGTH = 0;
+	private static final int MAX_INTERVAL_LEFT = 100;
+	private static final int MAX_INTERVAL_LENGTH = 1000;
 	
 	
 	public static void main(String[] args){
 		
 		int numIntervalos = preguntarIntervalos();
+		String criterio = preguntarCriterio();
+		ArrayList<Registro> l = generarIntervalos(numIntervalos);
+		System.out.println("Mostrando normal...");
+		for (Registro registro : l) {
+			System.out.println(registro.getIntervalo().toString());
+		}
+		System.out.println("Mostrando ordenado...");
+		ArrayList<Registro> l_ordenado = Mergesort.mergesort(l,criterio);
+		for (Registro registro : l_ordenado) {
+			System.out.println(registro.getIntervalo().toString());
+		}
 	}
 	
 	private static int preguntarIntervalos(){
+		System.out.printf("Introduzca el número de intervalos deseado: ");
 		Scanner teclado = new Scanner(System.in);
 		int numIntervalos = teclado.nextInt();
-		teclado.close();
 		return numIntervalos;
+	}
+	
+	private static String preguntarCriterio(){
+		System.out.println();
+		System.out.println("CRITERIOS DISPONIBLES:");
+		System.out.println("=========================================");
+		System.out.println("-Inicio de tareas => (izquierda)");
+		System.out.println("-Fin de tareas => (derecha)");
+		System.out.println("-Tamaño de tareas => (longitud)");
+		System.out.println("-Conflictividad de tareas => (conflictos)");
+		System.out.println("=========================================");
+		System.out.println();
+		System.out.print("Introduzca un criterio: ");
+		Scanner teclado = new Scanner(System.in);
+		String criterio = teclado.next();
+		teclado.close();
+		return criterio.toUpperCase();
 	}
 	
 	private static ArrayList<Registro> generarIntervalos(int numIntervalos){
@@ -39,7 +67,7 @@ public class Plan {
 		return list;
 	}
 	
-	private static void calcularConflictos(ArrayList list){
+	private static void calcularConflictos(ArrayList<Registro> list){
 		
 		Iterator<Registro> i = list.iterator();
 		Iterator<Registro> i2 = list.iterator();
