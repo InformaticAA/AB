@@ -16,6 +16,7 @@ public class Plan {
 		int numIntervalos = preguntarIntervalos();
 		String criterio = preguntarCriterio();
 		ArrayList<Registro> l = generarIntervalos(numIntervalos);
+		calcularConflictos(l);
 		System.out.println("Mostrando normal...");
 		for (Registro registro : l) {
 			System.out.println(registro.getIntervalo().toString());
@@ -75,7 +76,6 @@ public class Plan {
 		while (i.hasNext()) {
 			Registro a = i.next();
 			i2 = i;
-			i2.next();
 			while(i2.hasNext()) {
 				Registro b = i2.next();
 				if(!a.getIntervalo().compatibles(b.getIntervalo())){
