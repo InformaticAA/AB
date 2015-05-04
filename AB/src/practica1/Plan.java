@@ -1,7 +1,7 @@
 package practica1;
 
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.ListIterator;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -16,6 +16,7 @@ public class Plan {
 		int numIntervalos = preguntarIntervalos();
 		String criterio = preguntarCriterio();
 		ArrayList<Registro> l = generarIntervalos(numIntervalos);
+		calcularConflictos(l);
 		System.out.println("Mostrando normal...");
 		for (Registro registro : l) {
 			System.out.println(registro.getIntervalo().toString());
@@ -23,7 +24,7 @@ public class Plan {
 		System.out.println("Mostrando ordenado...");
 		ArrayList<Registro> l_ordenado = Mergesort.mergesort(l,criterio);
 		for (Registro registro : l_ordenado) {
-			System.out.println(registro.getIntervalo().toString());
+			System.out.println(registro.getIntervalo().toString() + " -> " + registro.getConflictos());
 		}
 	}
 	
@@ -69,16 +70,21 @@ public class Plan {
 	
 	private static void calcularConflictos(ArrayList<Registro> list){
 		
-		Iterator<Registro> i = list.iterator();
-		Iterator<Registro> i2 = list.iterator();
+		ListIterator<Registro> i1 = list.listIterator();
 		
-		while (i.hasNext()) {
-			Registro a = i.next();
-			i2 = i;
+		while (i1.hasNext()) {
+			
+			Registro a = i1.next();
+			ListIterator<Registro> i2 = list.listIterator(i1.previousIndex());
 			i2.next();
+					
 			while(i2.hasNext()) {
 				Registro b = i2.next();
 				if(!a.getIntervalo().compatibles(b.getIntervalo())){
+					
+					System.out.printf("---" + a.getIntervalo().toString());
+					System.out.println(" -> " + b.getIntervalo().toString());
+					
 					a.addConflicto();
 					b.addConflicto();
 				}

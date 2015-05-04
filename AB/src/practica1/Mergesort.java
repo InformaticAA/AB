@@ -21,7 +21,6 @@ public class Mergesort {
 			
 			/* Separa el vector lista en dos mitades */
 			int puntoMedio = lista.size()/2;
-			System.out.println(puntoMedio);
 
 			for (int i = 0; i < puntoMedio; i++) {
 				izquierda.add(lista.get(i));
