@@ -29,7 +29,4 @@ public class Registro {
 	public void addConflicto(){
 		this.conflictos++;
 	}
-	
-	
-
 }
