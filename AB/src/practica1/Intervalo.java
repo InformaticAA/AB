@@ -39,7 +39,6 @@ public class Intervalo {
 	}
 	
 	public boolean compatibles(Intervalo i2){
-		System.out.println(this.inicio + " - " + i2.inicio);
 		return (this.inicio >= i2.getFin() || i2.getInicio() >= this.getFin());
 	}
 }

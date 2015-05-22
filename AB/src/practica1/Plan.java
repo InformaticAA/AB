@@ -24,7 +24,7 @@ public class Plan {
 		System.out.println("Mostrando ordenado...");
 		ArrayList<Registro> l_ordenado = Mergesort.mergesort(l,criterio);
 		for (Registro registro : l_ordenado) {
-			System.out.println(registro.getIntervalo().toString() + " -> " + registro.getConflictos());
+			System.out.println(registro.getIntervalo().toString());
 		}
 	}
 	
@@ -81,9 +81,6 @@ public class Plan {
 			while(i2.hasNext()) {
 				Registro b = i2.next();
 				if(!a.getIntervalo().compatibles(b.getIntervalo())){
-					
-					System.out.printf("---" + a.getIntervalo().toString());
-					System.out.println(" -> " + b.getIntervalo().toString());
 					
 					a.addConflicto();
 					b.addConflicto();
