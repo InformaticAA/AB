@@ -11,20 +11,25 @@ public class Pruebas {
 		int numIntervalos = Plan.preguntar(mensaje);
 		mensaje = "Introduzca el numero de pruebas que desee ejecutar";
 		int numPruebas = Plan.preguntar(mensaje);
-		int[] vecesSuperado = new int[4];
+		
+		int[] vecesOptimo = new int[4];
 		for (int i = 0; i < numPruebas; i++) {
 			int empezar,terminar,longitud,conflictos;
 			ArrayList<Registro> l = Plan.generarIntervalos(numIntervalos);
 			
 			/* Muestra la lista original */
+			Plan.mostrarIntervalos(l);
 			
 			/* Muestra los intervalos seleccionados siguiendo el criterio de
 			 * que primero vaya la tarea que empiece primero */
+			System.out.println();
 			System.out.println("---Primero la tarea que empiece primero");
 			System.out.println();
 			ArrayList<Registro> l_ordenado = Mergesort.mergesort(l,"izquierda");
 			ArrayList<Registro> sol = Plan.seleccionVoraz(l_ordenado);
 			empezar = sol.size();
+			Plan.mostrarIntervalos(sol);
+			System.out.printf("Num intervalos = %d%n%n",empezar);
 			
 			/* Muestra los intervalos seleccionados siguiendo el criterio de
 			 * que primero vaya la tarea que termine primero */
@@ -33,6 +38,8 @@ public class Pruebas {
 			l_ordenado = Mergesort.mergesort(l,"derecha");
 			sol = Plan.seleccionVoraz(l_ordenado);
 			terminar = sol.size();
+			Plan.mostrarIntervalos(sol);
+			System.out.printf("Num intervalos = %d%n%n",terminar);
 
 			
 			/* Muestra los intervalos seleccionados siguiendo el criterio de
@@ -42,6 +49,8 @@ public class Pruebas {
 			l_ordenado = Mergesort.mergesort(l,"longitud");
 			sol = Plan.seleccionVoraz(l_ordenado);
 			longitud = sol.size();
+			Plan.mostrarIntervalos(sol);
+			System.out.printf("Num intervalos = %d%n%n",longitud);
 
 			
 			/* Muestra los intervalos seleccionados siguiendo el criterio de
@@ -51,6 +60,21 @@ public class Pruebas {
 			l_ordenado = Mergesort.mergesort(l,"conflictos");
 			sol = Plan.seleccionVoraz(l_ordenado);
 			conflictos = sol.size();
+			Plan.mostrarIntervalos(sol);
+			System.out.printf("Num intervalos = %d%n%n",conflictos);
+			
+			int[] resultados = new int[4];
+			resultados[0] = empezar;
+			resultados[1] = terminar;
+			resultados[2] = longitud;
+			resultados[3] = conflictos;
+			
+			int imin = 0;
+			for (int j = 1; j < resultados.length; j++) {
+				if(resultados[imin] > resultados[j]){
+					imin = j;
+				}
+			}
 			
 			
 		}

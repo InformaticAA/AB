@@ -12,8 +12,8 @@ public class Plan {
 	
 	
 	public static void main(String[] args){
-		
-		int numIntervalos = preguntarIntervalos();
+		String mensaje = "Introduzca el número de intervalos deseado: ";
+		int numIntervalos = preguntar(mensaje);
 		String criterio = preguntarCriterio();
 		ArrayList<Registro> l = generarIntervalos(numIntervalos);
 		calcularConflictos(l);
@@ -28,8 +28,8 @@ public class Plan {
 		}
 	}
 	
-	private static int preguntarIntervalos(){
-		System.out.printf("Introduzca el número de intervalos deseado: ");
+	public static int preguntar(String mensaje){
+		System.out.printf(mensaje);
 		Scanner teclado = new Scanner(System.in);
 		int numIntervalos = teclado.nextInt();
 		return numIntervalos;
@@ -52,7 +52,7 @@ public class Plan {
 		return criterio.toUpperCase();
 	}
 	
-	private static ArrayList<Registro> generarIntervalos(int numIntervalos){
+	public static ArrayList<Registro> generarIntervalos(int numIntervalos){
 		Random rand = new Random();
 		
 		ArrayList<Registro> list = new ArrayList<Registro>();
