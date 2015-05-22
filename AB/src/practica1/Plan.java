@@ -88,5 +88,28 @@ public class Plan {
 			}
 		}
 	}
+	
+	public static void mostrarIntervalos(ArrayList<Registro> list) {
+		
+		int interPorLinea = 5;
+		int cuenta = 0;
+		ListIterator<Registro> i1 = list.listIterator();
+		
+		while (i1.hasNext()) {
+			Registro reg = i1.next();
+			int numConflictos = reg.getConflictos();
+			Intervalo inter = reg.getIntervalo();
 
+			System.out.printf(inter + "(" + numConflictos + ")");
+			cuenta++;
+			
+			if ( cuenta % interPorLinea == 0) {
+				System.out.println();
+			} else {
+				System.out.printf(" ");
+			}
+		}
+	}
+	
+	
 }
