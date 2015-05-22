@@ -68,9 +68,10 @@ public class Plan {
 		return list;
 	}
 	
-	private static void calcularConflictos(ArrayList<Registro> list){
+	private static int calcularConflictos(ArrayList<Registro> list){
 		
 		ListIterator<Registro> i1 = list.listIterator();
+		int numConflictos = 0;
 		
 		while (i1.hasNext()) {
 			
@@ -84,9 +85,55 @@ public class Plan {
 					
 					a.addConflicto();
 					b.addConflicto();
+					numConflictos = numConflictos + 2;
 				}
 			}
 		}
+		return numConflictos;
 	}
+	
+	public static void mostrarIntervalos(ArrayList<Registro> list) {
+		
+		int interPorLinea = 5;
+		int cuenta = 0;
+		ListIterator<Registro> i1 = list.listIterator();
+		
+		/* Muestra cada intervalo de la lista junto a los conflictos generados */
+		while (i1.hasNext()) {
+			Registro reg = i1.next();
+			int numConflictos = reg.getConflictos();
+			Intervalo inter = reg.getIntervalo();
 
+			System.out.printf(inter + "(" + numConflictos + ")");
+			cuenta++;
+			
+			if ( cuenta % interPorLinea == 0) {
+				System.out.println();
+			} else {
+				System.out.printf(" ");
+			}
+		}
+	}
+	
+	public static ArrayList<Registro> seleccionVoraz(ArrayList<Registro> list) {
+		ArrayList<Registro> solucion = new ArrayList<Registro>();
+		ListIterator<Registro> i1 = list.listIterator();
+		
+		/* 
+		 * Recorre la lista de intervalos ordenada e introduce un intervalo a la
+		 * solucion solo si es compatible con los intervalos elegidos hasta el 
+		 * momento 
+		 */
+		while (i1.hasNext()) {
+			Registro nuevoReg = i1.next();
+			solucion.add(nuevoReg);
+			
+			if ( calcularConflictos(solucion) > 0) {
+				
+				/* Si el nuevo intervalo ha generado algun conflicto, se elimina de la solucion */
+				solucion.remove(nuevoReg);
+			}
+		}
+		return solucion;
+	}
 }
