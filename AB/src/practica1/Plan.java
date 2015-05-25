@@ -12,11 +12,11 @@ public class Plan {
 	
 	
 	public static void main(String[] args){
-		String mensaje = "Introduzca el número de intervalos deseado: ";
+		String mensaje = "Introduzca el numero de intervalos deseado: ";
 		int numIntervalos = preguntar(mensaje);
 		String criterio = preguntarCriterio();
 		ArrayList<Registro> l = generarIntervalos(numIntervalos);
-		calcularConflictos(l);
+		calcularConflictos(l,true);
 		System.out.println("Mostrando normal...");
 		for (Registro registro : l) {
 			System.out.println(registro.getIntervalo().toString());
@@ -68,7 +68,7 @@ public class Plan {
 		return list;
 	}
 	
-	private static int calcularConflictos(ArrayList<Registro> list){
+	public static int calcularConflictos(ArrayList<Registro> list, boolean actualizar){
 		
 		ListIterator<Registro> i1 = list.listIterator();
 		int numConflictos = 0;
@@ -82,9 +82,10 @@ public class Plan {
 			while(i2.hasNext()) {
 				Registro b = i2.next();
 				if(!a.getIntervalo().compatibles(b.getIntervalo())){
-					
-					a.addConflicto();
-					b.addConflicto();
+					if(actualizar){
+						a.addConflicto();
+						b.addConflicto();
+					}
 					numConflictos = numConflictos + 2;
 				}
 			}
@@ -127,13 +128,26 @@ public class Plan {
 		while (i1.hasNext()) {
 			Registro nuevoReg = i1.next();
 			solucion.add(nuevoReg);
+			ArrayList<Registro> copiaSolucion = (ArrayList<Registro>) solucion.clone();
 			
-			if ( calcularConflictos(solucion) > 0) {
+			if ( calcularConflictos(copiaSolucion,false) > 0) {
 				
 				/* Si el nuevo intervalo ha generado algun conflicto, se elimina de la solucion */
 				solucion.remove(nuevoReg);
+				
 			}
+			
 		}
 		return solucion;
+	}
+	
+	public static int calcularUtilizacion(ArrayList<Registro> list) {
+		ListIterator<Registro> i1 = list.listIterator();
+		int longTotal = 0;
+		while (i1.hasNext()){
+			Registro reg = i1.next();
+			longTotal = longTotal + reg.getIntervalo().getLength();
+		}
+		return longTotal;
 	}
 }
