@@ -149,4 +149,11 @@ public class Plan {
 		}
 		return longTotal;
 	}
+	
+	public static boolean preguntarDebug(){
+		System.out.printf("¿Desea activar el modo debug? (Y/N) ");
+		Scanner teclado = new Scanner(System.in);
+		String debug = teclado.next();
+		return debug.equalsIgnoreCase("Y");
+	}
 }

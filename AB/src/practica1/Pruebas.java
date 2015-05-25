@@ -11,6 +11,7 @@ public class Pruebas {
 		int numIntervalos = Plan.preguntar(mensaje);
 		mensaje = "Introduzca el numero de pruebas que desee ejecutar: ";
 		int numPruebas = Plan.preguntar(mensaje);
+		boolean debug = Plan.preguntarDebug();
 		
 		int[] vecesOptimo = new int[4];
 		for (int i = 0; i < numPruebas; i++) {
@@ -18,56 +19,69 @@ public class Pruebas {
 			ArrayList<Registro> l = Plan.generarIntervalos(numIntervalos);
 			Plan.calcularConflictos(l,true);
 			
-			System.out.println();
-			System.out.println("Mostrando intervalos generados");
-			System.out.println("==============================");
-			/* Muestra la lista original */
-			Plan.mostrarIntervalos(l);
+			if(debug){
+				System.out.println();
+				System.out.println("Mostrando intervalos generados");
+				System.out.println("==============================");
+				/* Muestra la lista original */
+				Plan.mostrarIntervalos(l);
+			}
 			
 			/* Muestra los intervalos seleccionados siguiendo el criterio de
 			 * que primero vaya la tarea que empiece primero */
-			System.out.println();
-			System.out.println("---Primero la tarea que empiece primero");
-			System.out.println();
 			ArrayList<Registro> l_ordenado = Mergesort.mergesort(l,"IZQUIERDA");
 			ArrayList<Registro> sol = Plan.seleccionVoraz(l_ordenado);
 			empezar = sol.size();
-			Plan.mostrarIntervalos(sol);
-			System.out.printf("%nNum intervalos = %d%n",empezar);
-			System.out.printf("Utilizacion total = %d%n%n",Plan.calcularUtilizacion(sol));
+			
+			if(debug){
+				System.out.println();
+				System.out.println("---Primero la tarea que empiece primero");
+				System.out.println();
+				Plan.mostrarIntervalos(sol);
+				System.out.printf("%nNum intervalos = %d%n",empezar);
+				System.out.printf("Utilizacion total = %d%n%n",Plan.calcularUtilizacion(sol));
+			}
 			
 			/* Muestra los intervalos seleccionados siguiendo el criterio de
 			 * que primero vaya la tarea que termine primero */
-			System.out.println("---Primero la tarea que termine primero");
-			System.out.println();
 			l_ordenado = Mergesort.mergesort(l,"DERECHA");
 			sol = Plan.seleccionVoraz(l_ordenado);
 			terminar = sol.size();
-			Plan.mostrarIntervalos(sol);
-			System.out.printf("%nNum intervalos = %d%n",terminar);
-			System.out.printf("Utilizacion total = %d%n%n",Plan.calcularUtilizacion(sol));
-
+			
+			if(debug){
+				System.out.println("---Primero la tarea que termine primero");
+				System.out.println();
+				Plan.mostrarIntervalos(sol);
+				System.out.printf("%nNum intervalos = %d%n",terminar);
+				System.out.printf("Utilizacion total = %d%n%n",Plan.calcularUtilizacion(sol));
+			}
 			/* Muestra los intervalos seleccionados siguiendo el criterio de
 			 * que primero vaya la tarea mas corta */
-			System.out.println("---Primero la tarea mas corta");
-			System.out.println();
 			l_ordenado = Mergesort.mergesort(l,"LONGITUD");
 			sol = Plan.seleccionVoraz(l_ordenado);
 			longitud = sol.size();
-			Plan.mostrarIntervalos(sol);
-			System.out.printf("%nNum intervalos = %d%n",longitud);
-			System.out.printf("Utilizacion total = %d%n%n",Plan.calcularUtilizacion(sol));
+			
+			if(debug){
+				System.out.println("---Primero la tarea mas corta");
+				System.out.println();
+				Plan.mostrarIntervalos(sol);
+				System.out.printf("%nNum intervalos = %d%n",longitud);
+				System.out.printf("Utilizacion total = %d%n%n",Plan.calcularUtilizacion(sol));
+			}
 
 			/* Muestra los intervalos seleccionados siguiendo el criterio de
 			 * que primero va la tarea menos conflictiva */
-			System.out.println("---Primero la tarea menos conflictiva");
-			System.out.println();
 			l_ordenado = Mergesort.mergesort(l,"CONFLICTOS");
 			sol = Plan.seleccionVoraz(l_ordenado);
 			conflictos = sol.size();
-			Plan.mostrarIntervalos(sol);
-			System.out.printf("%nNum intervalos = %d%n",conflictos);
-			System.out.printf("Utilizacion total = %d%n%n",Plan.calcularUtilizacion(sol));
+
+			if(debug){
+				System.out.println("---Primero la tarea menos conflictiva");
+				System.out.println();
+				Plan.mostrarIntervalos(sol);
+				System.out.printf("%nNum intervalos = %d%n",conflictos);
+				System.out.printf("Utilizacion total = %d%n%n",Plan.calcularUtilizacion(sol));
+			}
 			
 			int[] resultados = new int[4];
 			resultados[0] = empezar;
