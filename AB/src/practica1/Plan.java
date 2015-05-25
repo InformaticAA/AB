@@ -128,9 +128,8 @@ public class Plan {
 		while (i1.hasNext()) {
 			Registro nuevoReg = i1.next();
 			solucion.add(nuevoReg);
-			ArrayList<Registro> copiaSolucion = (ArrayList<Registro>) solucion.clone();
 			
-			if ( calcularConflictos(copiaSolucion,false) > 0) {
+			if ( calcularConflictos(solucion,false) > 0) {
 				
 				/* Si el nuevo intervalo ha generado algun conflicto, se elimina de la solucion */
 				solucion.remove(nuevoReg);
