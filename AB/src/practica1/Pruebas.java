@@ -69,12 +69,25 @@ public class Pruebas {
 			resultados[2] = longitud;
 			resultados[3] = conflictos;
 			
+			/* Eleccion del indice con menor numero de intervalos */
 			int imin = 0;
 			for (int j = 1; j < resultados.length; j++) {
 				if(resultados[imin] > resultados[j]){
 					imin = j;
 				}
 			}
+			
+			/* Actualizar la tabla de veces que ha sido optimo */
+			for (int j = 0; j < resultados.length; j++) {
+				if(resultados[j] == resultados[imin]){
+					vecesOptimo[j]++;
+				}
+			}
+			
+			
+			
+			
+			
 			
 			
 		}
