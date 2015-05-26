@@ -21,8 +21,8 @@ public class Pruebas {
 			
 			if(debug){
 				System.out.println();
-				System.out.println("Mostrando intervalos generados");
-				System.out.println("==============================");
+				System.out.println("Prueba " + (i+1) + ": Mostrando intervalos generados");
+				System.out.println("===========================================");
 				/* Muestra la lista original */
 				Plan.mostrarIntervalos(l);
 			}
@@ -35,7 +35,7 @@ public class Pruebas {
 			
 			if(debug){
 				System.out.println();
-				System.out.println("---Primero la tarea que empiece primero");
+				System.out.println("---Lista 1: Primero la tarea que empiece primero");
 				System.out.println();
 				Plan.mostrarIntervalos(sol);
 				System.out.printf("%nNum intervalos = %d%n",empezar);
@@ -49,7 +49,7 @@ public class Pruebas {
 			terminar = sol.size();
 			
 			if(debug){
-				System.out.println("---Primero la tarea que termine primero");
+				System.out.println("---Lista 2: Primero la tarea que termine primero");
 				System.out.println();
 				Plan.mostrarIntervalos(sol);
 				System.out.printf("%nNum intervalos = %d%n",terminar);
@@ -62,7 +62,7 @@ public class Pruebas {
 			longitud = sol.size();
 			
 			if(debug){
-				System.out.println("---Primero la tarea mas corta");
+				System.out.println("---Lista 3: Primero la tarea mas corta");
 				System.out.println();
 				Plan.mostrarIntervalos(sol);
 				System.out.printf("%nNum intervalos = %d%n",longitud);
@@ -76,7 +76,7 @@ public class Pruebas {
 			conflictos = sol.size();
 
 			if(debug){
-				System.out.println("---Primero la tarea menos conflictiva");
+				System.out.println("---Lista 4: Primero la tarea menos conflictiva");
 				System.out.println();
 				Plan.mostrarIntervalos(sol);
 				System.out.printf("%nNum intervalos = %d%n",conflictos);
