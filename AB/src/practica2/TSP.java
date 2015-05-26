@@ -1,6 +1,4 @@
 
-
-
 package practica2;
 
 import java.io.File;
@@ -13,14 +11,15 @@ import java.util.Set;
 
 public class TSP {
 
+	static double[][] gtab;
+
 	public static void main(String[] args){
 		int numVert = 4;
 //		int varNumVert = combinaciones(numVert);
 		int varNumVert = (int) Math.pow(2, numVert);
 		
 		int[][] matriz = leerMatriz("hola.txt");				//CAMBIAR POR ARGS[1] PARA SOMETER
-	
-		double[][] gtab = new double[numVert][varNumVert];
+		gtab = new double[numVert][varNumVert];
 		ArrayList<Integer> visitados = new ArrayList<Integer>();
 		HashSet<Integer> noVisitados = new HashSet<Integer>();
 		Hashtable<Set<Integer>,Integer> codifSets = new Hashtable<Set<Integer>,Integer>();
@@ -53,6 +52,7 @@ public class TSP {
 		System.out.println("Aplicando algoritmo de programacion dinamica...");
 		System.out.println("Posibles caminos   -  Coste");
 		System.out.println("===========================");
+		visitados = new ArrayList<Integer>();
 		inicio = System.currentTimeMillis();
 		coste = ProgDinamica.progDinamica(matriz,gtab,codifSets,noVisitados,visitados,0,0);
 		tiempo = System.currentTimeMillis() - inicio;
