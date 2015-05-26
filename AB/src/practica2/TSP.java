@@ -1,9 +1,12 @@
 
 package practica2;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Scanner;
 import java.util.Set;
 
 public class TSP {
@@ -13,12 +16,12 @@ public class TSP {
 //		int varNumVert = combinaciones(numVert);
 		int varNumVert = (int) Math.pow(2, numVert);
 		
-		int[][] matriz = new int[numVert][numVert];
+		int[][] matriz = leerMatriz("hola.txt");				//CAMBIAR POR ARGS[1] PARA SOMETER
+	
 		double[][] gtab = new double[numVert][varNumVert];
 		ArrayList<Integer> visitados = new ArrayList<Integer>();
 		HashSet<Integer> noVisitados = new HashSet<Integer>();
 		Hashtable<Set<Integer>,Integer> codifSets = new Hashtable<Set<Integer>,Integer>();
-		
 		
 		/* Inicializacion de variables */
 		for (int i = 0; i < numVert; i++) {
@@ -26,30 +29,10 @@ public class TSP {
 		}
 		
 		for (int i = 0; i < gtab.length; i++) {
-			for (int j = 0; j < gtab.length; j++) {
+			for (int j = 0; j < gtab[0].length; j++) {
 				gtab[i][j] = -1;
 			}
 		}
-		
-		matriz[0][0] = 0;
-		matriz[0][1] = 10;
-		matriz[0][2] = 15;
-		matriz[0][3] = 20;
-		
-		matriz[1][0] = 5;
-		matriz[1][1] = 0;
-		matriz[1][2] = 9;
-		matriz[1][3] = 10;
-		
-		matriz[2][0] = 6;
-		matriz[2][1] = 13;
-		matriz[2][2] = 0;
-		matriz[2][3] = 12;
-		
-		matriz[3][0] = 8;
-		matriz[3][1] = 8;
-		matriz[3][2] = 9;
-		matriz[3][3] = 0;
 		
 		/* Calcula los posibles caminos mediante fuerza bruta */
 		System.out.println("Aplicando algoritmo de fuerza bruta...");
@@ -67,6 +50,36 @@ public class TSP {
 		coste = ProgDinamica.progDinamica(matriz,gtab,codifSets,noVisitados,visitados,0,0);
 		System.out.println();
 		System.out.println("El coste minimo obtenido es: " + coste);
+	}
+	
+	
+	/**
+	 * Lee del fichero con nombre pasado como parametro la matriz contenida en el.
+	 * Para ello, en la primera linea debera aparecer el numero de vertices, y en
+	 * las siguientes las distintas filas de la matriz separadas por un salto de
+	 * linea (siguiendo el ejemplo de la matriz del guion de practicas)
+	 */
+	private static int[][] leerMatriz(String fichero){
+		int[][] matriz = null;
+		
+		try{
+			Scanner s = new Scanner(new File(fichero));
+			int numVert = s.nextInt();
+			matriz = new int[numVert][numVert];
+			
+			for (int i = 0; i < matriz.length; i++) {
+				s.nextLine();
+				for (int j = 0; j < matriz[0].length; j++) {
+					matriz[i][j] = s.nextInt();
+				}
+			}
+			s.close();
+		}
+		catch(IOException e){
+			e.printStackTrace();
+		}
+		
+		return matriz;
 	}
 	
 //	/**
