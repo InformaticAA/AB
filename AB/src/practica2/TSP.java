@@ -38,18 +38,27 @@ public class TSP {
 		System.out.println("Aplicando algoritmo de fuerza bruta...");
 		System.out.println("Posibles caminos   -  Coste");
 		System.out.println("===========================");
+		long inicio = System.currentTimeMillis();
 		double coste = FuerzaBruta.fuerzaBruta(matriz,visitados,0,0);
+		long tiempo = System.currentTimeMillis() - inicio;
 		System.out.println();
 		System.out.println("El coste minimo obtenido es: " + coste);
+		System.out.println();
+		System.out.printf("Tiempo empleado: %d milisegundos%n",tiempo);
 		
 		/* Calcula los posibles caminos mediante fuerza bruta */
 		System.out.println();
 		System.out.println("Aplicando algoritmo de programacion dinamica...");
 		System.out.println("Posibles caminos   -  Coste");
 		System.out.println("===========================");
+		inicio = System.currentTimeMillis();
 		coste = ProgDinamica.progDinamica(matriz,gtab,codifSets,noVisitados,visitados,0,0);
+		tiempo = System.currentTimeMillis() - inicio;
 		System.out.println();
 		System.out.println("El coste minimo obtenido es: " + coste);
+		System.out.println();
+		System.out.printf("Tiempo empleado: %d milisegundos%n",tiempo);
+
 	}
 	
 	
