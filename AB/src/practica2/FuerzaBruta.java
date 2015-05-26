@@ -5,7 +5,8 @@ import java.util.ArrayList;
 
 public class FuerzaBruta {
 
-	public static double fuerzaBruta(int[][] matriz, ArrayList<Integer> visitados, int actual, int coste){
+	public static double fuerzaBruta(int[][] matriz, ArrayList<Integer> visitados,
+			int actual, int coste){
 		
 		double numVert = matriz.length;
 
@@ -35,7 +36,8 @@ public class FuerzaBruta {
 			/* Expande los nodos conectados con el vertice inicial */
 			for (int i = 0; i < matriz[actual].length; i++) {
 				double distancia = matriz[actual][i] + 
-						fuerzaBruta(matriz,(ArrayList<Integer>) visitados.clone(),i,coste + matriz[actual][i]);
+						fuerzaBruta(matriz,(ArrayList<Integer>) visitados.clone(),
+								i,coste + matriz[actual][i]);
 				
 				if (distancia < minDist) {
 					minDist = distancia;
