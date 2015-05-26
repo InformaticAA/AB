@@ -40,7 +40,7 @@ public class TSP {
 		System.out.println("Posibles caminos   -  Coste");
 		System.out.println("===========================");
 		long inicio = System.currentTimeMillis();
-		double coste = FuerzaBruta.fuerzaBruta(matriz,visitados,0,0);
+		double coste = FuerzaBruta.fuerzaBruta(matriz,visitados,0,0,true);
 		long tiempo = System.currentTimeMillis() - inicio;
 		System.out.println();
 		System.out.println("El coste minimo obtenido es: " + coste);
