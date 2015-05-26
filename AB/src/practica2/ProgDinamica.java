@@ -16,6 +16,9 @@ public class ProgDinamica {
 				ArrayList<Integer> visitados,
 				int actual, int coste){
 		
+//		System.out.println("VISITADOS SIZE: " + visitados.size());
+//		System.out.println("NO_VISITADOS SIZE: " + noVisitados.size());
+		
 		if (noVisitados.isEmpty()) {
 			
 			/* El vertice actual es el inicial y ya se han visitado todos los nodos */
@@ -34,7 +37,12 @@ public class ProgDinamica {
 			}
 			
 			/* Si el resultado ya esta calculado lo reutiliza */
-			if ( gtab[actual][codifSets.get(noVisitados)] >= 0.0 ) {
+			if ( gtab[actual][codifSets.get(noVisitados)] >= 0 ) {
+				
+				double ind = codifSets.get(noVisitados);
+				System.out.println("Aprovechando calculo... i = " + actual + ", j) = " + ind);
+				System.out.println("Calculo aprovechado = " + gtab[actual][codifSets.get(noVisitados)]);
+				
 				return gtab[actual][codifSets.get(noVisitados)];				
 			}
 			
@@ -45,8 +53,6 @@ public class ProgDinamica {
 				
 				/* Expande los nodos conectados con el vertice actual */
 				for (Integer elem : noVisitados) {
-					
-					System.out.println(elem);
 					
 					/* Cuenta como visitado el nodo actual */
 					HashSet<Integer> noVisitadosCopia = (HashSet<Integer>) noVisitados.clone();
@@ -61,11 +67,12 @@ public class ProgDinamica {
 					
 					if (distancia < minDist) {
 						minDist = distancia;
-						System.out.println("MINIMO: " + minDist);
 					}
 				}
 				
 				/* Guarda el valor calculado para reutilizarlo */
+				System.out.println("Guardando calculo... (i = " + actual + ", j = " + codifSets.get(noVisitados) + 
+						") -> " + minDist);
 				gtab[actual][codifSets.get(noVisitados)] = minDist;
 				return minDist;
 			}
