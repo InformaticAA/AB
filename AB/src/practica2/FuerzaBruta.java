@@ -14,6 +14,8 @@ public class FuerzaBruta {
 				&& (visitados.get(0) == actual)
 				&& (visitados.size() == numVert) ) {
 			
+			visitados.add(0);
+			
 			/* El vertice actual es el inicial y ya se han visitado todos los nodos */
 			if(debug){
 				for (int i = 0; i < visitados.size(); i++) {

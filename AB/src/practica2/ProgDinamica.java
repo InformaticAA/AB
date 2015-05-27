@@ -16,12 +16,10 @@ public class ProgDinamica {
 				ArrayList<Integer> visitados,
 				int actual, int coste){
 		
-//		System.out.println("VISITADOS SIZE: " + visitados.size());
-//		System.out.println("NO_VISITADOS SIZE: " + noVisitados.size());
-		noVisitados.remove(actual);
-		
 		if (noVisitados.isEmpty()) {
 		
+			visitados.add(0);
+			
 			/* El vertice actual es el inicial y ya se han visitado todos los nodos */
 			for (int i = 0; i < visitados.size(); i++) {
 				System.out.printf("[" + visitados.get(i) + "] " );
@@ -30,6 +28,7 @@ public class ProgDinamica {
 			return matriz[actual][0];
 		}
 		else {
+			noVisitados.remove(actual);
 			
 			/* Genera una codificacion para un nuevo set de noVisitados */
 			if (!codifSets.contains(noVisitados)) {
@@ -39,32 +38,47 @@ public class ProgDinamica {
 			
 			/* Si el resultado ya esta calculado lo reutiliza */
 			if ( gtab[actual][codifSets.get(noVisitados)] >= 0 ) {
-				return gtab[actual][codifSets.get(noVisitados)];				
+				return gtab[actual][codifSets.get(noVisitados)];
 			}
 			
 			/* Calcula el coste por primera vez */
 			else {
 				double minDist = Double.POSITIVE_INFINITY;
 				visitados.add(actual);
-				
-				/* Expande los nodos conectados con el vertice actual */
-				for (Integer elem : noVisitados) {
+
+				if (!noVisitados.isEmpty()) {
 					
-					double distancia = matriz[actual][elem] + 
+					/* Expande los nodos conectados con el vertice actual */
+					for (Integer elem : noVisitados) {
+						
+						double distancia = matriz[actual][elem] + 
+								progDinamica(matriz,gtab,
+										codifSets,
+										(HashSet<Integer>) noVisitados.clone(),
+										(ArrayList<Integer>) visitados.clone(),
+										elem,coste + matriz[actual][elem]);
+						
+						if (distancia < minDist) {
+							minDist = distancia;
+						}
+					}
+					
+					/* Guarda el valor calculado para reutilizarlo */
+					gtab[actual][codifSets.get(noVisitados)] = minDist;
+					return minDist;
+				}
+				else {
+					
+					/* No quedan nodos sin visitar */
+					double distancia = matriz[actual][0] + 
 							progDinamica(matriz,gtab,
 									codifSets,
 									(HashSet<Integer>) noVisitados.clone(),
 									(ArrayList<Integer>) visitados.clone(),
-									elem,coste + matriz[actual][elem]);
+									0,coste + matriz[actual][0]); 
 					
-					if (distancia < minDist) {
-						minDist = distancia;
-					}
+					return distancia;
 				}
-				
-				/* Guarda el valor calculado para reutilizarlo */
-				gtab[actual][codifSets.get(noVisitados)] = minDist;
-				return minDist;
 			}
 		}
 	}
