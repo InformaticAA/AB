@@ -1,3 +1,18 @@
+/*
+ * Autores: Alejandro Marquez Ferrer - 566400
+ * 			Alejandro Royo Amondarain - 560285
+ * 
+ * Descripcion: Este fichero contiene el codigo correspondiente a la bateria de
+ * pruebas para comprobar cual de las cuatro soluciones propuestas en el enunciado
+ * de la practica es la optima. Para ello, se pide al usuario que introduzca un numero
+ * de pruebas y un numero de intervalos. Para cada prueba, se generara una lista con tantos
+ * intervalos aleatorios como el usuario haya introducido, se aplicara a cada lista las
+ * cuatro posibles soluciones, y se guardara cual o cuales han sido soluciones optimas. 
+ * El objetivo es realizar el maximo numero de tareas posibles sin generar conflictos.
+ * En caso de que, tras haber realizado todas las pruebas, una o varias soluciones hayan
+ * sido las mejores en todas y cada una de esas pruebas, seran marcadas como optimas.
+ */
+
 package practica1;
 
 import java.util.ArrayList;

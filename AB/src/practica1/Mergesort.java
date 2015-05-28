@@ -1,3 +1,11 @@
+/*
+ * Autores: Alejandro Marquez Ferrer - 566400
+ * 			Alejandro Royo Amondarain - 560285
+ * 
+ * Descripcion: Este fichero contiene el codigo correspondiente a la ordenacion mergesort.
+ * 	Su funcion es ordenar la lista dada mediante uno de los cuatro criterios existentes.
+ *  El criterio vendra dado como parametro
+ */
 package practica1;
 
 import java.util.ArrayList;
