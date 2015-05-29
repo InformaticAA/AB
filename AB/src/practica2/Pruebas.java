@@ -10,7 +10,6 @@ import java.util.Set;
 public class Pruebas {
 	
 	static double[][] gtab;
-	private static int contadorSet;
 	
 	public static void main(String[] args){
 		int numPruebas = preguntar("Numero de pruebas a ejecutar: ");
@@ -56,7 +55,7 @@ public class Pruebas {
 			}
 			visitados = new ArrayList<Integer>();
 			gtab = new double[dimension][(int)Math.pow(2,dimension)];
-			contadorSet = 0;
+			ProgDinamica.contadorSet = 0;
 			HashSet<Integer> noVisitados = new HashSet<Integer>();
 			Hashtable<Set<Integer>,Integer> codifSets = new Hashtable<Set<Integer>,Integer>();
 			
@@ -71,7 +70,7 @@ public class Pruebas {
 				}
 			}
 			inicio = System.currentTimeMillis();
-			coste = ProgDinamica.progDinamica(matriz, gtab, codifSets, noVisitados, visitados, 0, 0, contadorSet, debug);
+			coste = ProgDinamica.progDinamica(matriz, gtab, codifSets, noVisitados, visitados, 0, 0,debug);
 			tiempo = System.currentTimeMillis() - inicio;
 			tiempoPD = tiempoPD + tiempo;
 			if(debug){

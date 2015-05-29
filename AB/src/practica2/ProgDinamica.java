@@ -7,23 +7,24 @@ import java.util.Set;
 
 public class ProgDinamica {
 
+	public static int contadorSet = 0;
 	@SuppressWarnings("unchecked")
 	public static double progDinamica(int[][] matriz, double[][] gtab,
 				Hashtable<Set<Integer>,Integer> codifSets,
 				HashSet<Integer> noVisitados,
 				ArrayList<Integer> visitados,
-				int actual, int coste, int contadorSet,
-				boolean debug){
+				int actual, int coste,boolean debug){
 		
 		if (noVisitados.isEmpty()) {
 		
 			visitados.add(0);
 			
-			/* El vertice actual es el inicial y ya se han visitado todos los nodos */
 			if(debug){
+				/* El vertice actual es el inicial y ya se han visitado todos los nodos */
 				for (int i = 0; i < visitados.size(); i++) {
 					System.out.printf("[" + visitados.get(i) + "] " );
 				}
+			
 				System.out.println("   -    " + coste);
 			}
 			return matriz[actual][0];
@@ -57,8 +58,7 @@ public class ProgDinamica {
 										codifSets,
 										(HashSet<Integer>) noVisitados.clone(),
 										(ArrayList<Integer>) visitados.clone(),
-										elem,coste + matriz[actual][elem], 
-										contadorSet, debug);
+										elem,coste + matriz[actual][elem],debug);
 						
 						if (distancia < minDist) {
 							minDist = distancia;
@@ -77,8 +77,7 @@ public class ProgDinamica {
 									codifSets,
 									(HashSet<Integer>) noVisitados.clone(),
 									(ArrayList<Integer>) visitados.clone(),
-									0,coste + matriz[actual][0], contadorSet,
-									debug); 
+									0,coste + matriz[actual][0],debug); 
 					
 					return distancia;
 				}
