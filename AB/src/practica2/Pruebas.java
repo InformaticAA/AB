@@ -1,10 +1,16 @@
 package practica2;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Pruebas {
+	
+	static double[][] gtab;
+	private static int contadorSet;
 	
 	public static void main(String[] args){
 		int numPruebas = preguntar("Numero de pruebas a ejecutar: ");
@@ -39,7 +45,7 @@ public class Pruebas {
 				System.out.println();
 				System.out.println("El coste minimo obtenido es: " + coste);
 				System.out.println();
-				System.out.printf("Tiempo empleado: %f milisegundos%n",tiempo);
+				System.out.printf("Tiempo empleado: %d milisegundos%n",tiempo);
 			}
 			
 			if(debug){
@@ -49,23 +55,40 @@ public class Pruebas {
 				System.out.println("===========================");
 			}
 			visitados = new ArrayList<Integer>();
+			gtab = new double[dimension][(int)Math.pow(2,dimension)];
+			contadorSet = 0;
+			HashSet<Integer> noVisitados = new HashSet<Integer>();
+			Hashtable<Set<Integer>,Integer> codifSets = new Hashtable<Set<Integer>,Integer>();
+			
+			/* Inicializacion de variables */
+			for (int j = 0; j < dimension; j++) {
+				noVisitados.add(j);
+			}
+			
+			for (int j = 0; j < gtab.length; j++) {
+				for (int z = 0; z< gtab[0].length; z++) {
+					gtab[j][z] = -1;
+				}
+			}
 			inicio = System.currentTimeMillis();
-			coste = FuerzaBruta.fuerzaBruta(matriz,visitados,0,0,debug);				//Habra que cambiar a programacion dinamica
+			coste = ProgDinamica.progDinamica(matriz, gtab, codifSets, noVisitados, visitados, 0, 0, contadorSet, debug);
 			tiempo = System.currentTimeMillis() - inicio;
 			tiempoPD = tiempoPD + tiempo;
 			if(debug){
 				System.out.println();
 				System.out.println("El coste minimo obtenido es: " + coste);
 				System.out.println();
-				System.out.printf("Tiempo empleado: %f milisegundos%n",tiempo);
+				System.out.printf("Tiempo empleado: %d milisegundos%n",tiempo);
 			}
 		}
 		System.out.println();
-		System.out.printf("Tiempo total fuerza bruta: %d milisegundos%n",tiempoFB);
-		System.out.printf("Media fuerza bruta: %.2f milisegundos%n",((double)tiempoFB/numPruebas));
+		System.out.println("===========================================");
 		System.out.println();
-		System.out.printf("Tiempo total fuerza bruta: %d milisegundos%n",tiempoPD);
-		System.out.printf("Media fuerza bruta: %.2f milisegundos%n",((double)tiempoPD/numPruebas));
+		System.out.printf("Tiempo total fuerza bruta: %d milisegundos%n",tiempoFB);
+		System.out.printf("Media: %.2f milisegundos%n",((double)tiempoFB/numPruebas));
+		System.out.println();
+		System.out.printf("Tiempo total programacion dinamica: %d milisegundos%n",tiempoPD);
+		System.out.printf("Media: %.2f milisegundos%n",((double)tiempoPD/numPruebas));
 		
 		
 	}

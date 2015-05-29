@@ -12,13 +12,13 @@ import java.util.Set;
 public class TSP {
 
 	static double[][] gtab;
+	private static int contadorSet;
 
 	public static void main(String[] args){
-		int numVert = 4;
-//		int varNumVert = combinaciones(numVert);
-		int varNumVert = (int) Math.pow(2, numVert);
 		
-		int[][] matriz = leerMatriz("hola.txt");				//CAMBIAR POR ARGS[1] PARA SOMETER
+		int[][] matriz = leerMatriz("adios.txt");				//CAMBIAR POR ARGS[1] PARA SOMETER
+		int numVert = matriz.length;
+		int varNumVert = (int) Math.pow(2, numVert);
 		gtab = new double[numVert][varNumVert];
 		ArrayList<Integer> visitados = new ArrayList<Integer>();
 		HashSet<Integer> noVisitados = new HashSet<Integer>();
@@ -53,8 +53,9 @@ public class TSP {
 		System.out.println("Posibles caminos   -  Coste");
 		System.out.println("===========================");
 		visitados = new ArrayList<Integer>();
+		contadorSet = 0;
 		inicio = System.currentTimeMillis();
-		coste = ProgDinamica.progDinamica(matriz,gtab,codifSets,noVisitados,visitados,0,0);
+		coste = ProgDinamica.progDinamica(matriz,gtab,codifSets,noVisitados,visitados,0,0,contadorSet,true);
 		tiempo = System.currentTimeMillis() - inicio;
 		System.out.println();
 		System.out.println("El coste minimo obtenido es: " + coste);
