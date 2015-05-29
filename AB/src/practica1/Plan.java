@@ -39,24 +39,38 @@ public class Plan {
 		for (Registro registro : l) {
 			System.out.println(registro.getIntervalo().toString());
 		}
-		System.out.println();
 		
-		/* Muestra la lista de intervalos ordenada */
-		System.out.println("Mostrando ordenado segun el criterio " + criterio + "...");
-		ArrayList<Registro> l_ordenado = Mergesort.mergesort(l,criterio);
-		for (Registro registro : l_ordenado) {
-			System.out.println(registro.getIntervalo().toString());
+		boolean seguir = true;
+		while(seguir){
+			System.out.println();
+			
+			/* Muestra la lista de intervalos ordenada */
+			System.out.println("Mostrando ordenado segun el criterio " + criterio + "...");
+			ArrayList<Registro> l_ordenado = Mergesort.mergesort(l,criterio);
+			for (Registro registro : l_ordenado) {
+				System.out.println(registro.getIntervalo().toString());
+			}
+			System.out.println();
+			
+			/* Muestra la lista de intervalos escogida */
+			System.out.println("Aplicando seleccion voraz...");
+			ArrayList<Registro> sel_voraz = seleccionVoraz(l_ordenado);
+			for (Registro registro : sel_voraz) {
+				System.out.println(registro.getIntervalo().toString());
+			}
+			System.out.println();
+			System.out.println("Numero de intervalos tomados: " + sel_voraz.size());
+			
+			/* Pregunta al usuario si quiere aplicar a la misma lista otro criterio
+			 * para conocer su resultado
+			 */
+			seguir = preguntarSeguir();
+			if(seguir){
+				criterio = preguntarCriterio();
+			}
 		}
 		System.out.println();
-		
-		/* Muestra la lista de intervalos escogida */
-		System.out.println("Aplicando seleccion voraz...");
-		ArrayList<Registro> sel_voraz = seleccionVoraz(l_ordenado);
-		for (Registro registro : sel_voraz) {
-			System.out.println(registro.getIntervalo().toString());
-		}
-		System.out.println();
-		System.out.println("Numero de intervalos tomados: " + sel_voraz.size());
+		System.out.println("Programa finalizado");
 	}
 	
 	/**
@@ -87,7 +101,6 @@ public class Plan {
 		System.out.print("Introduzca un criterio: ");
 		Scanner teclado = new Scanner(System.in);
 		String criterio = teclado.next();
-		teclado.close();
 		return criterio.toUpperCase();
 	}
 	
@@ -214,7 +227,18 @@ public class Plan {
 	 * devuelve true. En caso contrario, devuelve false.
 	 */
 	public static boolean preguntarDebug(){
-		System.out.printf("¿Desea activar el modo debug? (Y/N) ");
+		System.out.printf("¿Desea activar el modo debug? (Y/N): ");
+		Scanner teclado = new Scanner(System.in);
+		String debug = teclado.next();
+		return debug.equalsIgnoreCase("Y");
+	}
+	
+	/**
+	 * Pregunta al usuario si desea aplicar algun otro criterio a la lista de intervalos.
+	 *  Si la respuesta es que si, devuelve true. En caso contrario, devuelve false.
+	 */
+	private static boolean preguntarSeguir(){
+		System.out.printf("¿Desea aplicar otro criterio? (Y/N): ");
 		Scanner teclado = new Scanner(System.in);
 		String debug = teclado.next();
 		return debug.equalsIgnoreCase("Y");
