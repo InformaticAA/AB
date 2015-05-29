@@ -16,7 +16,7 @@ public class TSP {
 
 	public static void main(String[] args){
 		
-		int[][] matriz = leerMatriz("adios.txt");				//CAMBIAR POR ARGS[1] PARA SOMETER
+		int[][] matriz = leerMatriz(args[0]);				//CAMBIAR POR ARGS[1] PARA SOMETER
 		int numVert = matriz.length;
 		int varNumVert = (int) Math.pow(2, numVert);
 		gtab = new double[numVert][varNumVert];
