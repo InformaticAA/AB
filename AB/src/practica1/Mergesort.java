@@ -164,7 +164,6 @@ public class Mergesort {
 					derecha.remove(0);
 		}
 
-				
 			default:
 				break;
 			}
