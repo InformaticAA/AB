@@ -129,6 +129,7 @@ public class Plan {
 	 * A partir de una lista de Registros pasada como parametro, calcula el numero de
 	 * conflictos totales de dichos registros (es decir, intervalos que coincidan), asi
 	 * como actualiza el numero de conflictos a nivel particular para cada Registro.
+	 * Coste temporal: O(n^2)
 	 */
 	public static int calcularConflictos(ArrayList<Registro> list, boolean actualizar){
 		
