@@ -4,7 +4,7 @@
  * 
  * Descripcion: Este fichero contiene el codigo correspondiente a la ordenacion mergesort.
  * 	Su funcion es ordenar la lista dada mediante uno de los cuatro criterios existentes.
- *  El criterio vendra dado como parametro
+ *  El criterio vendra dado como parametro. Coste temporal del algoritmo: O(nlogn)
  */
 package practica1;
 
