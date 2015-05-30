@@ -5,7 +5,8 @@
  * Descripcion: Este fichero contiene el codigo correspondiente al metodo principal
  * 		de la practica 1. En el se pide al usuario un numero de intervalos a generar y
  * 		un criterio de ordenacion para dichos intervalos. A continuacion, muestra la 
- * 		lista de intervalos generada, la lista una vez ordenada, y la seleccion resultante
+ * 		lista de intervalos generada, la lista una vez ordenada, y la seleccion resultante.
+ * 		El usuario podrá elegir otro criterio para, de esta manera, comparar resultdos.
  * 		
  */
 
