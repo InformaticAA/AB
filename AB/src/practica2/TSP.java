@@ -18,7 +18,7 @@ public class TSP {
 //		int varNumVert = combinaciones(numVert);
 		int varNumVert = (int) Math.pow(2, numVert);
 		
-		int[][] matriz = leerMatriz("hola.txt");				//CAMBIAR POR ARGS[1] PARA SOMETER
+		int[][] matriz = leerMatriz("4.txt");				//CAMBIAR POR ARGS[1] PARA SOMETER
 		gtab = new double[numVert][varNumVert];
 		ArrayList<Integer> visitados = new ArrayList<Integer>();
 		HashSet<Integer> noVisitados = new HashSet<Integer>();
