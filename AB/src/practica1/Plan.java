@@ -1,3 +1,15 @@
+/*
+ * Autores: Alejandro Marquez Ferrer - 566400
+ * 			Alejandro Royo Amondarain - 560285
+ * 
+ * Descripcion: Este fichero contiene el codigo correspondiente al metodo principal
+ * 		de la practica 1. En el se pide al usuario un numero de intervalos a generar y
+ * 		un criterio de ordenacion para dichos intervalos. A continuacion, muestra la 
+ * 		lista de intervalos generada, la lista una vez ordenada, y la seleccion resultante.
+ * 		El usuario podrá elegir otro criterio para, de esta manera, comparar resultdos.
+ * 		
+ */
+
 package practica1;
 
 import java.util.ArrayList;
@@ -12,22 +24,60 @@ public class Plan {
 	
 	
 	public static void main(String[] args){
+		
+		/* Pregunta por el numero de intervalos */
 		String mensaje = "Introduzca el numero de intervalos deseado: ";
 		int numIntervalos = preguntar(mensaje);
+		
+		/* Pregunta por el criterio mediante el cual hacer la seleccion */
 		String criterio = preguntarCriterio();
 		ArrayList<Registro> l = generarIntervalos(numIntervalos);
 		calcularConflictos(l,true);
+		System.out.println();
+		
+		/* Muestra la lista de intervalos generados tal cual */
 		System.out.println("Mostrando normal...");
 		for (Registro registro : l) {
 			System.out.println(registro.getIntervalo().toString());
 		}
-		System.out.println("Mostrando ordenado...");
-		ArrayList<Registro> l_ordenado = Mergesort.mergesort(l,criterio);
-		for (Registro registro : l_ordenado) {
-			System.out.println(registro.getIntervalo().toString());
+		
+		boolean seguir = true;
+		while(seguir){
+			System.out.println();
+			
+			/* Muestra la lista de intervalos ordenada */
+			System.out.println("Mostrando ordenado segun el criterio " + criterio + "...");
+			ArrayList<Registro> l_ordenado = Mergesort.mergesort(l,criterio);
+			for (Registro registro : l_ordenado) {
+				System.out.println(registro.getIntervalo().toString());
+			}
+			System.out.println();
+			
+			/* Muestra la lista de intervalos escogida */
+			System.out.println("Aplicando seleccion voraz...");
+			ArrayList<Registro> sel_voraz = seleccionVoraz(l_ordenado);
+			for (Registro registro : sel_voraz) {
+				System.out.println(registro.getIntervalo().toString());
+			}
+			System.out.println();
+			System.out.println("Numero de intervalos tomados: " + sel_voraz.size());
+			
+			/* Pregunta al usuario si quiere aplicar a la misma lista otro criterio
+			 * para conocer su resultado
+			 */
+			seguir = preguntarSeguir();
+			if(seguir){
+				criterio = preguntarCriterio();
+			}
 		}
+		System.out.println();
+		System.out.println("Programa finalizado");
 	}
 	
+	/**
+	 * El metodo muestra el mensaje pasado como parametro, y a continuacion lee
+	 * por teclado el entero introducido por el usuario y lo devuelve
+	 */
 	public static int preguntar(String mensaje){
 		System.out.printf(mensaje);
 		Scanner teclado = new Scanner(System.in);
@@ -35,6 +85,10 @@ public class Plan {
 		return numIntervalos;
 	}
 	
+	/**
+	 * El metodo muestra el menu de criterios disponibles, y a continuacion lee
+	 * por teclado la cadena introducida por el usuario y la devuelve (en mayusculas)
+	 */
 	private static String preguntarCriterio(){
 		System.out.println();
 		System.out.println("CRITERIOS DISPONIBLES:");
@@ -48,10 +102,13 @@ public class Plan {
 		System.out.print("Introduzca un criterio: ");
 		Scanner teclado = new Scanner(System.in);
 		String criterio = teclado.next();
-		teclado.close();
 		return criterio.toUpperCase();
 	}
 	
+	/**
+	 * Genera una lista de tantos intervalos aleatorios como se indique por parametro,
+	 *  con un rango determinado.
+	 */
 	public static ArrayList<Registro> generarIntervalos(int numIntervalos){
 		Random rand = new Random();
 		
@@ -68,6 +125,12 @@ public class Plan {
 		return list;
 	}
 	
+	/**
+	 * A partir de una lista de Registros pasada como parametro, calcula el numero de
+	 * conflictos totales de dichos registros (es decir, intervalos que coincidan), asi
+	 * como actualiza el numero de conflictos a nivel particular para cada Registro.
+	 * Coste temporal: O(n^2)
+	 */
 	public static int calcularConflictos(ArrayList<Registro> list, boolean actualizar){
 		
 		ListIterator<Registro> i1 = list.listIterator();
@@ -93,13 +156,17 @@ public class Plan {
 		return numConflictos;
 	}
 	
+	/**
+	 * 
+	 * Imprime por pantalla los intervalos de una lista, acompañados del numero
+	 * de conflictos de cada uno.
+	 */
 	public static void mostrarIntervalos(ArrayList<Registro> list) {
 		
 		int interPorLinea = 5;
 		int cuenta = 0;
 		ListIterator<Registro> i1 = list.listIterator();
 		
-		/* Muestra cada intervalo de la lista junto a los conflictos generados */
 		while (i1.hasNext()) {
 			Registro reg = i1.next();
 			int numConflictos = reg.getConflictos();
@@ -116,6 +183,9 @@ public class Plan {
 		}
 	}
 	
+	/**
+	 * Algoritmo de seleccion voraz.
+	 */
 	public static ArrayList<Registro> seleccionVoraz(ArrayList<Registro> list) {
 		ArrayList<Registro> solucion = new ArrayList<Registro>();
 		ListIterator<Registro> i1 = list.listIterator();
@@ -140,6 +210,10 @@ public class Plan {
 		return solucion;
 	}
 	
+	/**
+	 * Calcula el espacio temporal total utilizado por los intervalos pasados como
+	 * parametro.
+	 */
 	public static int calcularUtilizacion(ArrayList<Registro> list) {
 		ListIterator<Registro> i1 = list.listIterator();
 		int longTotal = 0;
@@ -150,8 +224,23 @@ public class Plan {
 		return longTotal;
 	}
 	
+	/**
+	 * Pregunta al usuario si desea activar el modo debug. Si la respuesta es que si,
+	 * devuelve true. En caso contrario, devuelve false.
+	 */
 	public static boolean preguntarDebug(){
-		System.out.printf("¿Desea activar el modo debug? (Y/N) ");
+		System.out.printf("¿Desea activar el modo debug? (Y/N): ");
+		Scanner teclado = new Scanner(System.in);
+		String debug = teclado.next();
+		return debug.equalsIgnoreCase("Y");
+	}
+	
+	/**
+	 * Pregunta al usuario si desea aplicar algun otro criterio a la lista de intervalos.
+	 *  Si la respuesta es que si, devuelve true. En caso contrario, devuelve false.
+	 */
+	private static boolean preguntarSeguir(){
+		System.out.printf("¿Desea aplicar otro criterio? (Y/N): ");
 		Scanner teclado = new Scanner(System.in);
 		String debug = teclado.next();
 		return debug.equalsIgnoreCase("Y");

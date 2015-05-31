@@ -7,24 +7,26 @@ import java.util.Set;
 
 public class ProgDinamica {
 
-	private static int contadorSet = 0;
-	
+	public static int contadorSet = 0;
 	@SuppressWarnings("unchecked")
 	public static double progDinamica(int[][] matriz, double[][] gtab,
 				Hashtable<Set<Integer>,Integer> codifSets,
 				HashSet<Integer> noVisitados,
 				ArrayList<Integer> visitados,
-				int actual, int coste){
+				int actual, int coste,boolean debug){
 		
 		if (noVisitados.isEmpty()) {
 		
 			visitados.add(0);
 			
-			/* El vertice actual es el inicial y ya se han visitado todos los nodos */
-			for (int i = 0; i < visitados.size(); i++) {
-				System.out.printf("[" + visitados.get(i) + "] " );
+			if(debug){
+				/* El vertice actual es el inicial y ya se han visitado todos los nodos */
+				for (int i = 0; i < visitados.size(); i++) {
+					System.out.printf("[" + visitados.get(i) + "] " );
+				}
+			
+				System.out.println("   -    " + coste);
 			}
-			System.out.println("   -    " + coste);
 			return matriz[actual][0];
 		}
 		else {
@@ -57,7 +59,7 @@ public class ProgDinamica {
 										codifSets,
 										(HashSet<Integer>) noVisitados.clone(),
 										(ArrayList<Integer>) visitados.clone(),
-										elem,coste + matriz[actual][elem]);
+										elem,coste + matriz[actual][elem],debug);
 						
 						if (distancia < minDist) {
 							minDist = distancia;
@@ -76,7 +78,7 @@ public class ProgDinamica {
 									codifSets,
 									(HashSet<Integer>) noVisitados.clone(),
 									(ArrayList<Integer>) visitados.clone(),
-									0,coste + matriz[actual][0]); 
+									0,coste + matriz[actual][0],debug); 
 					
 					return distancia;
 				}
