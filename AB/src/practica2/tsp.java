@@ -65,11 +65,14 @@ public class tsp {
 				System.out.println("Aplicando algoritmo de fuerza bruta...");
 				System.out.println("Posibles caminos   -  Coste");
 				System.out.println("===========================");
+				FuerzaBruta.mejorCamino = "";
+				FuerzaBruta.menorCoste = Double.POSITIVE_INFINITY;
 				inicio = System.currentTimeMillis();
-				coste = FuerzaBruta.fuerzaBruta(matriz,visitados,0,0,true);
+				coste = (int) FuerzaBruta.fuerzaBruta(matriz,visitados,0,0,true);
 				tiempo = System.currentTimeMillis() - inicio;
+				String camino = FuerzaBruta.mejorCamino;
 				System.out.println();
-				System.out.println("El coste minimo obtenido es: " + coste);
+				System.out.println("Camino mas corto: " + camino + "- Coste: " + coste);
 				System.out.println();
 				System.out.printf("Tiempo empleado: %d milisegundos%n",tiempo);
 			}
@@ -86,7 +89,7 @@ public class tsp {
 				reg = ProgDinamica.progDinamica(matriz,gtab,codifSets,noVisitados,visitados,0,0,true);
 				tiempo = System.currentTimeMillis() - inicio;
 				System.out.println();
-				System.out.println("Camino más corto: " + reg.getCamino() + " - Coste: " + reg.getCoste());
+				System.out.println("Camino mas corto: " + reg.getCamino() + " - Coste: " + reg.getCoste());
 				System.out.println();
 				System.out.printf("Tiempo empleado: %d milisegundos%n",tiempo);
 			}

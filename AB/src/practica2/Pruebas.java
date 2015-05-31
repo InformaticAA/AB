@@ -56,13 +56,13 @@ public class Pruebas {
 			FuerzaBruta.mejorCamino = "";
 			FuerzaBruta.menorCoste = Double.POSITIVE_INFINITY;
 			long inicio = System.currentTimeMillis();
-			double coste = FuerzaBruta.fuerzaBruta(matriz,visitados,0,0,debug);
+			int coste = (int) FuerzaBruta.fuerzaBruta(matriz,visitados,0,0,debug);
 			String camino = FuerzaBruta.mejorCamino;
 			long tiempo = System.currentTimeMillis() - inicio;
 			tiempoFB = tiempoFB + tiempo;
 			if(debug){
 				System.out.println();
-				System.out.println("Camino más corto: " + camino + "- Coste: " + coste);
+				System.out.println("Camino mas corto: " + camino + "- Coste: " + coste);
 				System.out.println();
 				System.out.printf("Tiempo empleado: %d milisegundos%n",tiempo);
 			}
@@ -95,7 +95,7 @@ public class Pruebas {
 			tiempoPD = tiempoPD + tiempo;
 			if(debug){
 				System.out.println();
-				System.out.println("Camino más corto: " + reg.getCamino() + " - Coste: " + reg.getCoste());
+				System.out.println("Camino mas corto: " + reg.getCamino() + " - Coste: " + reg.getCoste());
 				System.out.println();
 				System.out.printf("Tiempo empleado: %d milisegundos%n",tiempo);
 			}
