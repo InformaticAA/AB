@@ -17,11 +17,9 @@ import java.util.Set;
 public class ProgDinamica {
 
 	public static int contadorSet = 0;
-	public static double menorCoste = Double.POSITIVE_INFINITY;
-	public static String mejorCamino = "";
 	
 	@SuppressWarnings("unchecked")
-	public static double progDinamica(int[][] matriz, double[][] gtab,
+	public static Registro progDinamica(int[][] matriz, Registro[][] gtab,
 				Hashtable<Set<Integer>,Integer> codifSets,
 				HashSet<Integer> noVisitados,
 				ArrayList<Integer> visitados,
@@ -30,21 +28,10 @@ public class ProgDinamica {
 		if (noVisitados.isEmpty()) {
 		
 			visitados.add(0);
+
+			String camino = "[" + visitados.get(visitados.size() - 2) + "] " + "[" + actual + "] ";
 			
-			String camino = "";
-			for (int i = 0; i < visitados.size(); i++) {
-				camino = camino + "[" + visitados.get(i) + "] ";
-			}
-			if (coste < menorCoste) {
-				menorCoste = coste;
-				mejorCamino = camino;
-			}
-			
-			if(debug){
-				System.out.printf(camino);
-				System.out.println("   -    " + coste);
-			}
-			return matriz[actual][0];
+			return new Registro(matriz[actual][0],camino);
 		}
 		else {
 			noVisitados.remove(actual);
@@ -56,13 +43,14 @@ public class ProgDinamica {
 			}
 			
 			/* Si el resultado ya esta calculado lo reutiliza */
-			if ( gtab[actual][codifSets.get(noVisitados)] >= 0 ) {
+			if ( gtab[actual][codifSets.get(noVisitados)].getCoste() >= 0 ) {
 				return gtab[actual][codifSets.get(noVisitados)];
 			}
 			
 			/* Calcula el coste por primera vez */
 			else {
 				double minDist = Double.POSITIVE_INFINITY;
+				String minCamino = "";
 				visitados.add(actual);
 
 				if (!noVisitados.isEmpty()) {
@@ -70,33 +58,37 @@ public class ProgDinamica {
 					/* Expande los nodos conectados con el vertice actual */
 					for (Integer elem : noVisitados) {
 						
-						double distancia = matriz[actual][elem] + 
-								progDinamica(matriz,gtab,
-										codifSets,
-										(HashSet<Integer>) noVisitados.clone(),
-										(ArrayList<Integer>) visitados.clone(),
-										elem,coste + matriz[actual][elem],debug);
+						Registro reg = progDinamica(matriz,gtab,
+								codifSets,
+								(HashSet<Integer>) noVisitados.clone(),
+								(ArrayList<Integer>) visitados.clone(),
+								elem,coste + matriz[actual][elem],debug);
+						double distancia = matriz[actual][elem] + reg.getCoste();
+						String camino = "[" + actual + "] " + reg.getCamino();
 						
 						if (distancia < minDist) {
 							minDist = distancia;
+							minCamino = camino;
 						}
 					}
 					
 					/* Guarda el valor calculado para reutilizarlo */
-					gtab[actual][codifSets.get(noVisitados)] = minDist;
-					return minDist;
+					Registro nuevoReg = new Registro((int) minDist,minCamino);
+					gtab[actual][codifSets.get(noVisitados)] = nuevoReg;
+
+					return nuevoReg;
 				}
 				else {
 					
 					/* No quedan nodos sin visitar */
-					double distancia = matriz[actual][0] + 
-							progDinamica(matriz,gtab,
-									codifSets,
-									(HashSet<Integer>) noVisitados.clone(),
-									(ArrayList<Integer>) visitados.clone(),
-									0,coste + matriz[actual][0],debug); 
+					Registro reg = progDinamica(matriz,gtab,
+							codifSets,
+							(HashSet<Integer>) noVisitados.clone(),
+							(ArrayList<Integer>) visitados.clone(),
+							0,coste + matriz[actual][0],debug);
 					
-					return distancia;
+					reg.setCoste(reg.getCoste() + matriz[actual][0]);
+					return reg;
 				}
 			}
 		}

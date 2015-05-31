@@ -23,7 +23,7 @@ import java.util.Set;
 
 public class tsp {
 
-	static double[][] gtab;
+	static Registro[][] gtab;
 
 	public static void main(String[] args){
 		
@@ -36,12 +36,13 @@ public class tsp {
 			long inicio = 0;
 			long tiempo = 0;
 			double coste = 0;
+			Registro reg;
 			
 			String opcion = args[0];
 			int[][] matriz = leerMatriz(args[1]);
 			int numVert = matriz.length;
 			int varNumVert = (int) Math.pow(2, numVert);
-			gtab = new double[numVert][numVert * varNumVert];
+			gtab = new Registro[numVert][numVert * varNumVert];
 			ArrayList<Integer> visitados = new ArrayList<Integer>();
 			HashSet<Integer> noVisitados = new HashSet<Integer>();
 			Hashtable<Set<Integer>,Integer> codifSets = new Hashtable<Set<Integer>,Integer>();
@@ -53,7 +54,7 @@ public class tsp {
 			
 			for (int i = 0; i < gtab.length; i++) {
 				for (int j = 0; j < gtab[0].length; j++) {
-					gtab[i][j] = -1;
+					gtab[i][j] = new Registro(-1,"");
 				}
 			}
 			
@@ -81,14 +82,11 @@ public class tsp {
 				System.out.println("===========================");
 				visitados = new ArrayList<Integer>();
 				ProgDinamica.contadorSet = 0;
-				ProgDinamica.mejorCamino = "";
-				ProgDinamica.menorCoste = Double.POSITIVE_INFINITY;
 				inicio = System.currentTimeMillis();
-				coste = ProgDinamica.progDinamica(matriz,gtab,codifSets,noVisitados,visitados,0,0,true);
-				String camino = ProgDinamica.mejorCamino;
+				reg = ProgDinamica.progDinamica(matriz,gtab,codifSets,noVisitados,visitados,0,0,true);
 				tiempo = System.currentTimeMillis() - inicio;
 				System.out.println();
-				System.out.println("Camino más corto: " + camino + " - Coste: " + coste);
+				System.out.println("Camino más corto: " + reg.getCamino() + " - Coste: " + reg.getCoste());
 				System.out.println();
 				System.out.printf("Tiempo empleado: %d milisegundos%n",tiempo);
 			}
