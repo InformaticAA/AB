@@ -1,3 +1,20 @@
+/*
+ * Autores: Alejandro Marquez Ferrer - 566400
+ * 			Alejandro Royo Amondarain - 560285
+ * 
+ * Descripcion: Este fichero contiene el codigo correspondiente a la bateria de
+ * pruebas para comparar la eficiencia entre dos soluciones diferentes al
+ * problema del viajante de comercio. Estas son:
+ * 
+ * 		- Fuerza bruta.
+ * 		- Programacion dinamica.
+ * 
+ * El programa pregunta al usuario tres opciones:
+ * 		- Numero de pruebas a realizar (se obtiene la media en tiempo).
+ * 		- Numero de vertices de la matriz a generar.
+ * 		- Opcion de debug para mostrar las soluciones por pantalla.
+ */
+
 package practica2;
 
 import java.util.ArrayList;
@@ -98,6 +115,7 @@ public class Pruebas {
 	 */
 	private static int preguntar(String mensaje){
 		System.out.printf(mensaje);
+		@SuppressWarnings("resource")
 		Scanner teclado = new Scanner(System.in);
 		int numIntervalos = teclado.nextInt();
 		return numIntervalos;
@@ -109,6 +127,7 @@ public class Pruebas {
 	 */
 	private static boolean preguntarDebug(){
 		System.out.printf("¿Desea activar el modo debug? (Y/N): ");
+		@SuppressWarnings("resource")
 		Scanner teclado = new Scanner(System.in);
 		String debug = teclado.next();
 		return debug.equalsIgnoreCase("Y");

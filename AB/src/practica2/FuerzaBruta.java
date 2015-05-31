@@ -1,3 +1,11 @@
+/*
+ * Autores: Alejandro Marquez Ferrer - 566400
+ * 			Alejandro Royo Amondarain - 560285
+ * 
+ * Descripcion: Este fichero contiene el codigo correspondiente a la
+ * implementacion del algoritmo de fuerza bruta para resolver el
+ * problema del viajante de comercio.
+ */
 
 package practica2;
 
@@ -5,6 +13,7 @@ import java.util.ArrayList;
 
 public class FuerzaBruta {
 
+	@SuppressWarnings("unchecked")
 	public static double fuerzaBruta(int[][] matriz, ArrayList<Integer> visitados,
 			int actual, int coste, boolean debug){
 		

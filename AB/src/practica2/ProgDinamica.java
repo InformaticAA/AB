@@ -1,3 +1,12 @@
+/*
+ * Autores: Alejandro Marquez Ferrer - 566400
+ * 			Alejandro Royo Amondarain - 560285
+ * 
+ * Descripcion: Este fichero contiene el codigo correspondiente a la
+ * implementacion del algoritmo de programacion dinamica para resolver
+ * el problema del viajante de comercio.
+ */
+
 package practica2;
 
 import java.util.ArrayList;
