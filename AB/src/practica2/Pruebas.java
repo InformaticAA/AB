@@ -53,13 +53,16 @@ public class Pruebas {
 				System.out.println("===========================");
 			}
 			ArrayList<Integer> visitados = new ArrayList<Integer>();
+			FuerzaBruta.mejorCamino = "";
+			FuerzaBruta.menorCoste = Double.POSITIVE_INFINITY;
 			long inicio = System.currentTimeMillis();
 			double coste = FuerzaBruta.fuerzaBruta(matriz,visitados,0,0,debug);
+			String camino = FuerzaBruta.mejorCamino;
 			long tiempo = System.currentTimeMillis() - inicio;
 			tiempoFB = tiempoFB + tiempo;
 			if(debug){
 				System.out.println();
-				System.out.println("El coste minimo obtenido es: " + coste);
+				System.out.println("Camino más corto: " + camino + "- Coste: " + coste);
 				System.out.println();
 				System.out.printf("Tiempo empleado: %d milisegundos%n",tiempo);
 			}
@@ -73,6 +76,8 @@ public class Pruebas {
 			visitados = new ArrayList<Integer>();
 			gtab = new double[dimension][(int)Math.pow(2,dimension)];
 			ProgDinamica.contadorSet = 0;
+			ProgDinamica.mejorCamino = "";
+			ProgDinamica.menorCoste = Double.POSITIVE_INFINITY;
 			HashSet<Integer> noVisitados = new HashSet<Integer>();
 			Hashtable<Set<Integer>,Integer> codifSets = new Hashtable<Set<Integer>,Integer>();
 			
@@ -88,11 +93,12 @@ public class Pruebas {
 			}
 			inicio = System.currentTimeMillis();
 			coste = ProgDinamica.progDinamica(matriz, gtab, codifSets, noVisitados, visitados, 0, 0,debug);
+			camino = ProgDinamica.mejorCamino;
 			tiempo = System.currentTimeMillis() - inicio;
 			tiempoPD = tiempoPD + tiempo;
 			if(debug){
 				System.out.println();
-				System.out.println("El coste minimo obtenido es: " + coste);
+				System.out.println("Camino más corto: " + camino + "- Coste: " + coste);
 				System.out.println();
 				System.out.printf("Tiempo empleado: %d milisegundos%n",tiempo);
 			}

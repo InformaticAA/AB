@@ -17,6 +17,9 @@ import java.util.Set;
 public class ProgDinamica {
 
 	public static int contadorSet = 0;
+	public static double menorCoste = Double.POSITIVE_INFINITY;
+	public static String mejorCamino = "";
+	
 	@SuppressWarnings("unchecked")
 	public static double progDinamica(int[][] matriz, double[][] gtab,
 				Hashtable<Set<Integer>,Integer> codifSets,
@@ -28,12 +31,17 @@ public class ProgDinamica {
 		
 			visitados.add(0);
 			
-			if(debug){
-				/* El vertice actual es el inicial y ya se han visitado todos los nodos */
-				for (int i = 0; i < visitados.size(); i++) {
-					System.out.printf("[" + visitados.get(i) + "] " );
-				}
+			String camino = "";
+			for (int i = 0; i < visitados.size(); i++) {
+				camino = camino + "[" + visitados.get(i) + "] ";
+			}
+			if (coste < menorCoste) {
+				menorCoste = coste;
+				mejorCamino = camino;
+			}
 			
+			if(debug){
+				System.out.printf(camino);
 				System.out.println("   -    " + coste);
 			}
 			return matriz[actual][0];

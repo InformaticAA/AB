@@ -13,6 +13,9 @@ import java.util.ArrayList;
 
 public class FuerzaBruta {
 
+	public static double menorCoste = Double.POSITIVE_INFINITY;
+	public static String mejorCamino = "";
+	
 	@SuppressWarnings("unchecked")
 	public static double fuerzaBruta(int[][] matriz, ArrayList<Integer> visitados,
 			int actual, int coste, boolean debug){
@@ -25,11 +28,17 @@ public class FuerzaBruta {
 			
 			visitados.add(0);
 			
-			/* El vertice actual es el inicial y ya se han visitado todos los nodos */
+			String camino = "";
+			for (int i = 0; i < visitados.size(); i++) {
+				camino = camino + "[" + visitados.get(i) + "] ";
+			}
+			if (coste < menorCoste) {
+				menorCoste = coste;
+				mejorCamino = camino;
+			}
+			
 			if(debug){
-				for (int i = 0; i < visitados.size(); i++) {
-					System.out.printf("[" + visitados.get(i) + "] " );
-				}
+				System.out.printf(camino);
 				System.out.println("   -    " + coste);
 			}
 			return 0;

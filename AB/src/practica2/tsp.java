@@ -81,11 +81,14 @@ public class tsp {
 				System.out.println("===========================");
 				visitados = new ArrayList<Integer>();
 				ProgDinamica.contadorSet = 0;
+				ProgDinamica.mejorCamino = "";
+				ProgDinamica.menorCoste = Double.POSITIVE_INFINITY;
 				inicio = System.currentTimeMillis();
 				coste = ProgDinamica.progDinamica(matriz,gtab,codifSets,noVisitados,visitados,0,0,true);
+				String camino = ProgDinamica.mejorCamino;
 				tiempo = System.currentTimeMillis() - inicio;
 				System.out.println();
-				System.out.println("El coste minimo obtenido es: " + coste);
+				System.out.println("Camino más corto: " + camino + " - Coste: " + coste);
 				System.out.println();
 				System.out.printf("Tiempo empleado: %d milisegundos%n",tiempo);
 			}
