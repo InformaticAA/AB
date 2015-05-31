@@ -36,6 +36,7 @@ public class ProgDinamica {
 			if (!codifSets.containsKey(noVisitados)) {
 				codifSets.put(noVisitados, contadorSet);
 				contadorSet++;
+				System.out.println(actual + " - " + contadorSet);
 			}
 			
 			/* Si el resultado ya esta calculado lo reutiliza */
